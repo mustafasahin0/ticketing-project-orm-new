@@ -1,6 +1,7 @@
 package com.example.converter;
 
 import com.example.dto.RoleDTO;
+import com.example.service.RoleService;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
