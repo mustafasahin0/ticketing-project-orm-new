@@ -1,7 +1,6 @@
 package com.example.converter;
 
 import com.example.dto.UserDTO;
-import com.example.service.UserService;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
