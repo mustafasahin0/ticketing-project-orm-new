@@ -1,4 +1,4 @@
-package com.example.service.impl;
+package com.example.service;
 
 public interface UserService {
 }
