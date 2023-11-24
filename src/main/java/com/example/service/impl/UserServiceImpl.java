@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDTO userDTO) {
-
+        userRepository.save(userMapper.convertToEntity(userDTO));
     }
 
     @Override
