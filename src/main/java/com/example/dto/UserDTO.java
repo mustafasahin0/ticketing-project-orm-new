@@ -61,9 +61,9 @@ public class UserDTO {
     }
 
     private void checkConfirmPassWord() {
-        if(this.passWord == null || this.confirmPassWord == null){
+        if (this.passWord == null || this.confirmPassWord == null) {
             return;
-        }else if(!this.passWord.equals(confirmPassWord)){
+        } else if (!this.passWord.equals(confirmPassWord)) {
             this.confirmPassWord = null;
         }
     }
