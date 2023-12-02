@@ -5,19 +5,20 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "projects")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-@Table(name = "projects")
+@Where(clause = "is_deleted=false")
 public class Project extends BaseEntity {
 
 
     private String projectName;
-
 
     private String projectCode;
 
@@ -34,7 +35,4 @@ public class Project extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Status projectStatus;
-
-    private int completeTaskCounts;
-    private int unfinishedTaskCounts;
 }
