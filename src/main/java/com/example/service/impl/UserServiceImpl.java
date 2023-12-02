@@ -1,7 +1,10 @@
 package com.example.service.impl;
 
+import com.example.dto.RoleDTO;
 import com.example.dto.UserDTO;
+import com.example.entity.Role;
 import com.example.entity.User;
+import com.example.mapper.RoleMapper;
 import com.example.mapper.UserMapper;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
@@ -24,6 +27,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> listAllUsers() {
         return userRepository.findAll().stream().map(userMapper::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDTO> listAllByRole(String role) {
+        return userRepository.findAllByRoleDescription(role).stream().map(userMapper::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
