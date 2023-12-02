@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.dto.ProjectDTO;
 import com.example.entity.Project;
+import com.example.entity.User;
 import com.example.enums.Status;
 import com.example.mapper.ProjectMapper;
 import com.example.repository.ProjectRepository;
@@ -55,6 +56,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void update(ProjectDTO projectDTO) {
+        Project project = projectRepository.findByProjectCode(projectDTO.getProjectCode());
 
+        Project convertedProject = projectMapper.converToEntity(projectDTO);
+
+        convertedProject.setId(project.getId());
+        convertedProject.setProjectStatus(project.getProjectStatus());
+        projectRepository.save(convertedProject);
     }
 }
