@@ -30,6 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void save(ProjectDTO projectDTO) {
         projectDTO.setProjectStatus(Status.OPEN);
+
         projectRepository.save(projectMapper.converToEntity(projectDTO));
     }
 
