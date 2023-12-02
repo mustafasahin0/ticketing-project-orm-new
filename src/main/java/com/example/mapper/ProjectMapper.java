@@ -3,7 +3,9 @@ package com.example.mapper;
 import com.example.dto.ProjectDTO;
 import com.example.entity.Project;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProjectMapper {
 
     private final ModelMapper modelMapper;
