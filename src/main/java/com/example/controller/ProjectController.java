@@ -1,8 +1,6 @@
 package com.example.controller;
 
 import com.example.dto.ProjectDTO;
-import com.example.dto.RoleDTO;
-import com.example.dto.UserDTO;
 import com.example.service.ProjectService;
 import com.example.service.UserService;
 import jakarta.validation.Valid;
@@ -10,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/project")
@@ -55,7 +51,7 @@ public class ProjectController {
 
     @GetMapping("/delete/{projectcode}")
     public String deleteProject(@PathVariable("projectcode") String projectcode) {
-        projectService.deleteByProjectCode(projectcode);
+        projectService.delete(projectcode);
         return "redirect:/project/create";
     }
 
@@ -92,11 +88,11 @@ public class ProjectController {
         return "redirect:/project/create";
 
     }
-//
+
 //    @GetMapping("/manager/project-status")
 //    public String getProjectByManager(Model model) {
 //
-//        UserDTO manager = userService.findById("john@cydeo.com");
+//        UserDTO manager = userService.findByUserName("john@cydeo.com");
 //
 //        List<ProjectDTO> projects = projectService.getCountedListOfProjectDTO(manager);
 //
@@ -104,11 +100,11 @@ public class ProjectController {
 //
 //        return "/manager/project-status";
 //    }
-//
-//    @GetMapping("/manager/complete/{projectCode}")
-//    public String managerCompleteProject(@PathVariable("projectCode") String projectCode) {
-//        projectService.complete(projectService.findById(projectCode));
-//        return "redirect:/project/manager/project-status";
-//    }
+
+    @GetMapping("/manager/complete/{projectCode}")
+    public String managerCompleteProject(@PathVariable("projectCode") String projectCode) {
+        projectService.complete(projectService.getByProjectCode(projectCode));
+        return "redirect:/project/manager/project-status";
+    }
 
 }

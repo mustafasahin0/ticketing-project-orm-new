@@ -14,11 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
-    ProjectRepository projectRepository;
-    ProjectMapper projectMapper;
+    private final ProjectRepository projectRepository;
+    private final ProjectMapper projectMapper;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
+        this.projectMapper = projectMapper;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deleteByProjectCode(String projectCode) {
+    public void delete(String projectCode) {
         projectRepository.deleteByProjectCode(projectCode);
     }
 

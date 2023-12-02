@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ProjectService {
 
+    ProjectDTO getByProjectCode(String projectCode);
+
     List<ProjectDTO> listAllProjects();
 
     void save(ProjectDTO projectDTO);
 
-    void deleteByProjectCode(String projectCode);
-
-    ProjectDTO getByProjectCode(String projectCode);
+    void delete(String projectCode);
 
     void complete(ProjectDTO projectDTO);
 
