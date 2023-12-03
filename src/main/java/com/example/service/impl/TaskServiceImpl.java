@@ -24,7 +24,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDTO> getAllTasks() {
+    public List<TaskDTO> listAllTasks() {
         return taskRepository.findAll().stream().map(taskMapper::converToDTO).collect(Collectors.toList());
     }
 
@@ -38,14 +38,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void deleteById(Long taskId) {
+    public void delete(Long taskId) {
         Task task = taskRepository.findById(taskId).get();
         task.setIsDeleted(true);
         taskRepository.save(task);
     }
 
     @Override
-    public TaskDTO findTaskById(Long taskId) {
+    public TaskDTO findById(Long taskId) {
         return taskMapper.converToDTO(taskRepository.findById(taskId).get());
     }
 

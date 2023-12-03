@@ -1,22 +1,21 @@
 package com.example.service;
 
 import com.example.dto.TaskDTO;
-import com.example.entity.Task;
 import com.example.enums.Status;
 
 import java.util.List;
 
 public interface TaskService {
 
-    List<TaskDTO> getAllTasks();
+    TaskDTO findById(Long taskId);
+
+    List<TaskDTO> listAllTasks();
 
     void save(TaskDTO taskDTO);
 
-    void deleteById(Long taskId);
-
-    TaskDTO findTaskById(Long taskId);
-
     void update(TaskDTO taskDTO);
+
+    void delete(Long taskId);
 
     List<TaskDTO> findAllTasksByStatusIsNot(Status status);
 
