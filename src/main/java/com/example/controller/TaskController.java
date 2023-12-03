@@ -31,7 +31,7 @@ public class TaskController {
 
         model.addAttribute("task", new TaskDTO());
         model.addAttribute("projects", projectService.listAllProjects());
-        model.addAttribute("employees", userService.listAllByRole("Employees"));
+        model.addAttribute("employees", userService.listAllByRole("Employee"));
         model.addAttribute("tasks", taskService.listAllTasks());
 
         return "task/create";
@@ -43,7 +43,7 @@ public class TaskController {
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("projects", projectService.listAllProjects());
-            model.addAttribute("employees", userService.listAllByRole("Employees"));
+            model.addAttribute("employees", userService.listAllByRole("Employee"));
             model.addAttribute("tasks", taskService.listAllTasks());
 
             return "/task/create";
