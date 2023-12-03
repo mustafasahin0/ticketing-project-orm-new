@@ -20,4 +20,10 @@ public interface TaskService {
     List<TaskDTO> findAllTasksByStatusIsNot(Status status);
 
     List<TaskDTO> findAllTasksByStatus(Status status);
+
+    List<TaskDTO> findAllTasksByProjectCode(String projectCode);
+
+    int totalNotCompletedTask(String projectCode);
+
+    int totalCompletedTask(String projectCode);
 }
