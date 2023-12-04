@@ -11,13 +11,14 @@ import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "tasks")
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "is_deleted=false")
 @Getter
 @Setter
+@Entity
+@Table(name = "tasks")
+@Where(clause = "is_deleted=false")
 public class Task extends BaseEntity {
 
     private String taskSubject;

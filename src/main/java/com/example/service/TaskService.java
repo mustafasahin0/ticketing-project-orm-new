@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.ProjectDTO;
 import com.example.dto.TaskDTO;
 import com.example.enums.Status;
 
@@ -26,4 +27,6 @@ public interface TaskService {
     int totalNotCompletedTask(String projectCode);
 
     int totalCompletedTask(String projectCode);
+
+    void deleteByProject(ProjectDTO projectDTO);
 }

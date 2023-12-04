@@ -4,9 +4,11 @@ import com.example.dto.ProjectDTO;
 import com.example.dto.TaskDTO;
 import com.example.dto.UserDTO;
 import com.example.entity.Project;
+import com.example.entity.Task;
 import com.example.entity.User;
 import com.example.enums.Status;
 import com.example.mapper.ProjectMapper;
+import com.example.mapper.TaskMapper;
 import com.example.mapper.UserMapper;
 import com.example.repository.ProjectRepository;
 import com.example.repository.TaskRepository;
@@ -26,13 +28,17 @@ public class ProjectServiceImpl implements ProjectService {
     private final UserMapper userMapper;
     private final UserService userService;
     private final TaskService taskService;
+    private final TaskMapper taskMapper;
+    private final TaskRepository taskRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper, UserMapper userMapper, UserService userService, TaskService taskService) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper, UserMapper userMapper, UserService userService, TaskService taskService, TaskMapper taskMapper, TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
         this.userMapper = userMapper;
         this.userService = userService;
         this.taskService = taskService;
+        this.taskMapper = taskMapper;
+        this.taskRepository = taskRepository;
     }
 
     @Override
@@ -50,8 +56,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void delete(String projectCode) {
         Project project = projectRepository.findByProjectCode(projectCode);
+
         project.setIsDeleted(true);
+        project.setProjectCode(project.getProjectCode() + "-" + project.getId());
+
         projectRepository.save(project);
+
+        taskService.deleteByProject(projectMapper.convertToDTO(project));
     }
 
     @Override
