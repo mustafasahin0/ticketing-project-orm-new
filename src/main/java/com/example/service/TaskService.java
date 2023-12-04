@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dto.ProjectDTO;
 import com.example.dto.TaskDTO;
+import com.example.entity.User;
 import com.example.enums.Status;
 
 import java.util.List;
@@ -33,4 +34,6 @@ public interface TaskService {
     void completeByProject(ProjectDTO projectDTO);
 
     void updateStatus(TaskDTO task);
+
+    List<TaskDTO> readAllByAssignedEmployee(User assignedEmployee);
 }
