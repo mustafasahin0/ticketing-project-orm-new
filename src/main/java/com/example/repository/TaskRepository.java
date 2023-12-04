@@ -1,6 +1,5 @@
 package com.example.repository;
 
-import com.example.dto.TaskDTO;
 import com.example.entity.Project;
 import com.example.entity.Task;
 import com.example.enums.Status;
@@ -20,4 +19,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     int totalCompletedTasks(String projectCode);
 
     List<Task> findAllByProject(Project project);
+
+    List<Task> listAllByTaskStatusIsNot(Status status);
+
+    List<Task> listAllByTaskStatus(Status status);
+
+    List<Task> listAllByProjectProjectCode(String projectCode);
 }
