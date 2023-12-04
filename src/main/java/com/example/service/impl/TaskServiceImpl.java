@@ -62,7 +62,7 @@ public class TaskServiceImpl implements TaskService {
 
         if (existedTask.isPresent()) {
             updatedTask.setId(existedTask.get().getId());
-            updatedTask.setTaskStatus(existedTask.get().getTaskStatus());
+            updatedTask.setTaskStatus(taskDTO.getTaskStatus() == null ? existedTask.get().getTaskStatus() : taskDTO.getTaskStatus());
             updatedTask.setAssignedDate(existedTask.get().getAssignedDate());
             taskRepository.save(updatedTask);
         }
@@ -97,6 +97,15 @@ public class TaskServiceImpl implements TaskService {
     public void deleteByProject(ProjectDTO projectDTO) {
         List<TaskDTO> taskList = getAllByProject(projectDTO).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
         taskList.forEach(task -> delete(task.getId()));
+    }
+
+    @Override
+    public void completeByProject(ProjectDTO projectDTO) {
+        List<TaskDTO> taskList = getAllByProject(projectDTO).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
+        taskList.forEach(taskDTO -> {
+            taskDTO.setTaskStatus(Status.COMPLETE);
+            update(taskDTO);
+        });
     }
 
     private List<Task> getAllByProject(ProjectDTO projectDTO) {
