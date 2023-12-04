@@ -91,7 +91,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> findAllTasksByProjectCode(String projectCode) {
-        return taskRepository.listAllByProjectProjectCode(projectCode).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
+        return taskRepository.findAllByProjectProjectCode(projectCode).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
     }
 
     @Override
