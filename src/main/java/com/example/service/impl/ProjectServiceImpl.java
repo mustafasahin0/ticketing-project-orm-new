@@ -15,6 +15,7 @@ import com.example.repository.TaskRepository;
 import com.example.service.ProjectService;
 import com.example.service.TaskService;
 import com.example.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final TaskMapper taskMapper;
     private final TaskRepository taskRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper, UserMapper userMapper, UserService userService, TaskService taskService, TaskMapper taskMapper, TaskRepository taskRepository) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper, UserMapper userMapper, @Lazy UserService userService, TaskService taskService, TaskMapper taskMapper, TaskRepository taskRepository) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
         this.userMapper = userMapper;
