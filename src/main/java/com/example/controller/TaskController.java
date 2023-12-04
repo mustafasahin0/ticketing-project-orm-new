@@ -5,7 +5,6 @@ import com.example.enums.Status;
 import com.example.service.ProjectService;
 import com.example.service.TaskService;
 import com.example.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,7 +84,7 @@ public class TaskController {
 
         }
 
-        taskService.update(task);
+        taskService.updateStatus(task);
         return "redirect:/task/create";
     }
 
@@ -118,7 +117,7 @@ public class TaskController {
 
         }
 
-        taskService.update(task);
+        taskService.updateStatus(task);
         return "redirect:/task/employee/pending-tasks";
 
     }

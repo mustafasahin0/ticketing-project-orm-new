@@ -3,10 +3,12 @@ package com.example.service.impl;
 import com.example.dto.ProjectDTO;
 import com.example.dto.TaskDTO;
 import com.example.entity.Task;
+import com.example.entity.User;
 import com.example.enums.Status;
 import com.example.mapper.ProjectMapper;
 import com.example.mapper.TaskMapper;
 import com.example.repository.TaskRepository;
+import com.example.repository.UserRepository;
 import com.example.service.TaskService;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,14 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final ProjectMapper projectMapper;
+    private final UserRepository userRepository;
 
-    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper, ProjectMapper projectMapper) {
+    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper, ProjectMapper projectMapper,
+                           UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
         this.projectMapper = projectMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -70,12 +75,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> findAllTasksByStatusIsNot(Status status) {
-        return taskRepository.listAllByTaskStatusIsNot(status).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
+        User loggedInUser = userRepository.findByUserName("john@employee.com");
+
+        List<Task> taskList = taskRepository.findAllByTaskStatusIsNotAndAssignedEmployee(status, loggedInUser);
+        return taskList.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<TaskDTO> findAllTasksByStatus(Status status) {
-        return taskRepository.listAllByTaskStatus(status).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
+        User loggedInUser = userRepository.findByUserName("john@employee.com");
+
+        List<Task> taskList = taskRepository.findAllByTaskStatusAndAssignedEmployee(status, loggedInUser);
+        return taskList.stream().map(taskMapper::converToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -104,8 +115,19 @@ public class TaskServiceImpl implements TaskService {
         List<TaskDTO> taskList = getAllByProject(projectDTO).stream().map(taskMapper::converToDTO).collect(Collectors.toList());
         taskList.forEach(taskDTO -> {
             taskDTO.setTaskStatus(Status.COMPLETE);
-            update(taskDTO);
+            updateStatus(taskDTO);
         });
+    }
+
+    @Override
+    public void updateStatus(TaskDTO taskDTO) {
+
+        Optional<Task> task = taskRepository.findById(taskDTO.getId());
+
+        if (task.isPresent()) {
+            task.get().setTaskStatus(taskDTO.getTaskStatus());
+            taskRepository.save(task.get());
+        }
     }
 
     private List<Task> getAllByProject(ProjectDTO projectDTO) {
